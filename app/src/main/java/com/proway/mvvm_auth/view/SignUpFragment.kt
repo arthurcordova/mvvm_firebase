@@ -3,9 +3,7 @@ package com.proway.mvvm_auth.view
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.Observer
@@ -13,12 +11,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseUser
 import com.proway.mvvm_auth.MainActivity
 import com.proway.mvvm_auth.R
+import com.proway.mvvm_auth.utils.replaceView
 import com.proway.mvvm_auth.view_model.MainViewModel
 
-class MainFragment : Fragment(R.layout.main_fragment) {
+class SignUpFragment : Fragment(R.layout.sign_up_fragment) {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = SignUpFragment()
     }
 
     private lateinit var viewModel: MainViewModel
@@ -50,7 +49,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
 
         view.findViewById<View>(R.id.backButton).setOnClickListener {
-            (requireActivity() as? MainActivity)?.replaceView(SignInFragment.newInstance())
+            requireActivity().replaceView(SignInFragment.newInstance(), R.id.action_bar)
         }
 
 

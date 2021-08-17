@@ -3,7 +3,9 @@ package com.proway.mvvm_auth
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.proway.mvvm_auth.view.MainFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.proway.mvvm_auth.utils.replaceView
+import com.proway.mvvm_auth.view.ContentFragment
 import com.proway.mvvm_auth.view.SignInFragment
 
 class MainActivity : AppCompatActivity() {
@@ -12,13 +14,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        replaceView(SignInFragment.newInstance())
-
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            replaceView(ContentFragment.newInstance())
+        } else {
+            replaceView(SignInFragment.newInstance())
+        }
     }
 
-    fun replaceView(frag: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, frag)
-            .commitNow()
-    }
 }
