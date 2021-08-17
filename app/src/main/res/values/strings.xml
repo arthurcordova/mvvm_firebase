@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Mvvm_auth</string>
+    <string name="criar_user">Criar user</string>
+</resources>

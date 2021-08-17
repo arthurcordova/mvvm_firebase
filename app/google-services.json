@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "307929868611",
+    "project_id": "mvvm-kotlin-d1e86",
+    "storage_bucket": "mvvm-kotlin-d1e86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307929868611:android:afde86045c097de83ea7f6",
+        "android_client_info": {
+          "package_name": "com.proway.mvvm_auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307929868611-1c581sa2qqd94njrspmuacdfke1a7tkc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF-eQJMvduJl7L9dnjZcMkYVMSstPA3cM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307929868611-1c581sa2qqd94njrspmuacdfke1a7tkc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
