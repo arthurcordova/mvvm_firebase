@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.proway.mvvm_auth.R
+import com.proway.mvvm_auth.view_model.ContentViewModel
 
 class ContentFragment : Fragment() {
 

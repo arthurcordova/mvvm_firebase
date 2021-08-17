@@ -11,6 +11,7 @@ import android.widget.EditText
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseUser
+import com.proway.mvvm_auth.MainActivity
 import com.proway.mvvm_auth.R
 import com.proway.mvvm_auth.view_model.MainViewModel
 
@@ -47,6 +48,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 )
             }
         }
+
+        view.findViewById<View>(R.id.backButton).setOnClickListener {
+            (requireActivity() as? MainActivity)?.replaceView(SignInFragment.newInstance())
+        }
+
+
     }
 
 }

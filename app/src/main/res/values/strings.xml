@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Mvvm_auth</string>
     <string name="criar_user">Criar user</string>
+    <string name="new_user">Novo usuário</string>
+    <string name="login">Login</string>
+    <string name="autenticar">Autenticar</string>
+    <string name="cirar_uma_nova_conta_aqui">Cirar uma nova conta! Aqui</string>
 </resources>

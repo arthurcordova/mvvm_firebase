@@ -1,4 +1,4 @@
-package com.proway.mvvm_auth.view
+package com.proway.mvvm_auth.view_model
 
 import androidx.lifecycle.ViewModel
 
