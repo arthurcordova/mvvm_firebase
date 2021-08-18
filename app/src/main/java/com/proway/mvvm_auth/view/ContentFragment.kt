@@ -6,13 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.firebase.auth.FirebaseUser
 import com.proway.mvvm_auth.R
 import com.proway.mvvm_auth.adapter.ContasAdapter
 import com.proway.mvvm_auth.model.Bill
+import com.proway.mvvm_auth.utils.replaceView
 import com.proway.mvvm_auth.view_model.ContentViewModel
 
 class ContentFragment : Fragment(R.layout.content_fragment) {
@@ -24,6 +27,7 @@ class ContentFragment : Fragment(R.layout.content_fragment) {
     private lateinit var viewModel: ContentViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var userEmailTextView: TextView
     private val adapter = ContasAdapter()
 
     val observerContas = Observer<List<Bill>> {
@@ -35,17 +39,32 @@ class ContentFragment : Fragment(R.layout.content_fragment) {
         swipeRefreshLayout.isRefreshing = false
     }
 
+    val observerSignOut = Observer<Boolean> { isSignedIn ->
+        if (!isSignedIn) {
+            requireActivity().replaceView(SignInFragment.newInstance())
+        }
+    }
+
+    val observerSignedUser = Observer<FirebaseUser> { user ->
+        userEmailTextView.apply {
+            text = user.email
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ContentViewModel::class.java)
 
         swipeRefreshLayout = view.findViewById(R.id.swipeContainer)
+        userEmailTextView = view.findViewById(R.id.userEmailTextView)
         recyclerView = view.findViewById(R.id.contasRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
         viewModel.error.observe(viewLifecycleOwner, observerError)
         viewModel.bill.observe(viewLifecycleOwner, observerContas)
+        viewModel.isSignedIn.observe(viewLifecycleOwner, observerSignOut)
+        viewModel.user.observe(viewLifecycleOwner, observerSignedUser)
 
 
         view.findViewById<Button>(R.id.saveButton).setOnClickListener {
@@ -58,17 +77,25 @@ class ContentFragment : Fragment(R.layout.content_fragment) {
                 )
             }
         }
+        view.findViewById<View>(R.id.signOutButton).setOnClickListener {
+            viewModel.signOut()
+        }
 
         swipeRefreshLayout.setOnRefreshListener {
-            loadData()
+            loadBillsData()
         }
-        loadData()
 
+        loadBillsData()
+        loadUserData()
     }
 
-    fun loadData() {
+    fun loadBillsData() {
         swipeRefreshLayout.isRefreshing = true
         viewModel.fetchContas()
+    }
+
+    fun loadUserData() {
+        viewModel.fetchCurrentUser()
     }
 
 }

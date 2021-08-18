@@ -39,4 +39,11 @@ class AuthenticationRepository {
         }
     }
 
+    fun signOut() {
+        auth.signOut()
+    }
+
+    fun currentUser(): FirebaseUser? = auth.currentUser
+
+
 }
