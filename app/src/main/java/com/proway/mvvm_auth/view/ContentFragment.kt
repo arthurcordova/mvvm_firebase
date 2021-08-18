@@ -1,5 +1,6 @@
 package com.proway.mvvm_auth.view
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,9 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.auth.FirebaseUser
+import com.proway.mvvm_auth.DetailActivity
 import com.proway.mvvm_auth.R
 import com.proway.mvvm_auth.adapter.ContasAdapter
 import com.proway.mvvm_auth.model.Bill
+import com.proway.mvvm_auth.repository.BillRepository
 import com.proway.mvvm_auth.utils.replaceView
 import com.proway.mvvm_auth.view_model.ContentViewModel
 
@@ -28,7 +31,15 @@ class ContentFragment : Fragment(R.layout.content_fragment) {
     private lateinit var recyclerView: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var userEmailTextView: TextView
-    private val adapter = ContasAdapter()
+    private val adapter = ContasAdapter() {
+
+//        BillRepository().fetchBill(it.uid!!) { bill, error ->
+//            println("")
+//        }
+        Intent(requireContext(), DetailActivity::class.java).apply {
+            startActivity(this)
+        }
+    }
 
     val observerContas = Observer<List<Bill>> {
         adapter.refresh(it)
@@ -65,7 +76,6 @@ class ContentFragment : Fragment(R.layout.content_fragment) {
         viewModel.bill.observe(viewLifecycleOwner, observerContas)
         viewModel.isSignedIn.observe(viewLifecycleOwner, observerSignOut)
         viewModel.user.observe(viewLifecycleOwner, observerSignedUser)
-
 
         view.findViewById<Button>(R.id.saveButton).setOnClickListener {
             val inputName = view.findViewById<EditText>(R.id.inputNameEditText)

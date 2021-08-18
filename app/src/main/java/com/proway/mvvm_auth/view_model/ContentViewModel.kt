@@ -17,7 +17,7 @@ class ContentViewModel : ViewModel() {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    private val _isSignedIn = MutableLiveData<Boolean>( true)
+    private val _isSignedIn = MutableLiveData<Boolean>(true)
     val isSignedIn: LiveData<Boolean> = _isSignedIn
 
     private val _user = MutableLiveData<FirebaseUser>()
@@ -37,13 +37,12 @@ class ContentViewModel : ViewModel() {
     }
 
     fun addBill(name: String, price: Double?) {
-        Bill(null, name, price).apply {
-            billsRepository.addBill(this) { bill, error ->
-                if (error != null) {
-                    _error.value = error
-                } else {
-                    fetchContas()
-                }
+        val newBill = Bill(null, name, price)
+        billsRepository.addBill(newBill) { _, error ->
+            if (error != null) {
+                _error.value = error
+            } else {
+                fetchContas()
             }
         }
     }

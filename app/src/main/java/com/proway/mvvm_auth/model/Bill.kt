@@ -1,6 +1,7 @@
 package com.proway.mvvm_auth.model
 
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
 data class Bill(
@@ -19,12 +20,12 @@ data class Bill(
             )
         }
 
-        fun fromDocument(doc: DocumentReference): Bill {
+        fun fromDocument(doc: DocumentSnapshot): Bill {
 
             return Bill(
                 uid = doc.id,
-                name = null,
-                price = null
+                name = doc["name"] as? String,
+                price = doc["price"] as? Double
             )
         }
 

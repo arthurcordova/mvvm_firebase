@@ -28,23 +28,45 @@ class BillRepository {
             }
     }
 
-    fun addBill(bill: Bill, callback: (Bill?, String?) -> Unit) {
+    fun fetchBill(uid: String, callback: (Bill?, String?) -> Unit) {
         dataBase.collection(BILLS_COLLECTION)
-            .add(bill)
-            .addOnSuccessListener {
-
-                Bill.fromDocument(it).apply {
-                    callback(this, null)
-                }
-
+            .document(uid)
+            .get()
+            .addOnSuccessListener { document ->
+                val bill = Bill.fromDocument(document)
+                callback(bill, null)
             }
             .addOnFailureListener { exception ->
                 callback(null, exception.message)
             }
     }
 
+    fun delete(uid: String, callback: (Boolean) -> Unit) {
+        dataBase.collection(BILLS_COLLECTION)
+            .document(uid)
+            .delete()
+            .addOnSuccessListener {
+                callback(true)
+            }
+            .addOnFailureListener { exception ->
+                callback(false)
+            }
+    }
 
+    fun addBill(bill: Bill, callback: (Bill?, String?) -> Unit) {
+        dataBase.collection(BILLS_COLLECTION)
+            .add(bill)
+            .addOnSuccessListener {
 
+                val newBill = bill.apply {
+                    uid = it.id
+                }
+                callback(newBill, null)
+            }
+            .addOnFailureListener { exception ->
+                callback(null, exception.message)
+            }
+    }
 
 
 }

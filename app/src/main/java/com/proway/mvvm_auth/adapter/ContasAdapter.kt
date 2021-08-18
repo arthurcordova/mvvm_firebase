@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.proway.mvvm_auth.R
 import com.proway.mvvm_auth.model.Bill
 
-class ContasAdapter : RecyclerView.Adapter<ContaViewHolder>() {
+class ContasAdapter(val onItemClick: (Bill) -> Unit) : RecyclerView.Adapter<ContaViewHolder>() {
 
     private var listOfBills: MutableList<Bill> = mutableListOf()
 
@@ -21,6 +21,7 @@ class ContasAdapter : RecyclerView.Adapter<ContaViewHolder>() {
     override fun onBindViewHolder(holder: ContaViewHolder, position: Int) {
         listOfBills[position].apply {
             holder.bind(this)
+            holder.itemView.setOnClickListener { onItemClick(this) }
         }
     }
 
