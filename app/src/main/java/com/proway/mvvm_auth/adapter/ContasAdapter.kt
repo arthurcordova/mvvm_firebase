@@ -7,11 +7,11 @@ import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.recyclerview.widget.RecyclerView
 import com.proway.mvvm_auth.R
-import com.proway.mvvm_auth.model.Conta
+import com.proway.mvvm_auth.model.Bill
 
 class ContasAdapter : RecyclerView.Adapter<ContaViewHolder>() {
 
-    private var listOfContas: MutableList<Conta> = mutableListOf()
+    private var listOfBills: MutableList<Bill> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContaViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_conta, parent, false)
@@ -19,16 +19,16 @@ class ContasAdapter : RecyclerView.Adapter<ContaViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ContaViewHolder, position: Int) {
-        listOfContas[position].apply {
+        listOfBills[position].apply {
             holder.bind(this)
         }
     }
 
-    override fun getItemCount(): Int = listOfContas.size
+    override fun getItemCount(): Int = listOfBills.size
 
-    fun refresh(newList: List<Conta>) {
-        listOfContas = arrayListOf()
-        listOfContas.addAll(newList)
+    fun refresh(newList: List<Bill>) {
+        listOfBills = arrayListOf()
+        listOfBills.addAll(newList)
         notifyDataSetChanged()
     }
 
@@ -36,10 +36,10 @@ class ContasAdapter : RecyclerView.Adapter<ContaViewHolder>() {
 
 class ContaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(conta: Conta) {
-        setData(conta.uid, R.id.uidTextView)
-        setData(conta.name, R.id.nameTextView)
-        setData(conta.price.toString(), R.id.priceTextView)
+    fun bind(bill: Bill) {
+        setData(bill.uid, R.id.uidTextView)
+        setData(bill.name, R.id.nameTextView)
+        setData(bill.price.toString(), R.id.priceTextView)
     }
 
     private fun setData(value: String?, @IdRes componentId: Int) {

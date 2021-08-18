@@ -3,25 +3,37 @@ package com.proway.mvvm_auth.view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.proway.mvvm_auth.model.Conta
-import com.proway.mvvm_auth.repository.ContaRepository
+import com.proway.mvvm_auth.model.Bill
+import com.proway.mvvm_auth.repository.BillRepository
 
 class ContentViewModel : ViewModel() {
 
-    private val _contas = MutableLiveData<List<Conta>>()
-    val contas: LiveData<List<Conta>> = _contas
+    private val _bills = MutableLiveData<List<Bill>>()
+    val bill: LiveData<List<Bill>> = _bills
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    val contaRepository = ContaRepository()
+    private val billsRepository = BillRepository()
 
     fun fetchContas() {
-        contaRepository.fetchContas { contas, error ->
+        billsRepository.fetchBills { bills, error ->
             if (error != null) {
                 _error.value = error
             } else {
-                _contas.value = contas
+                _bills.value = bills
+            }
+        }
+    }
+
+    fun addBill(name: String, price: Double?) {
+        Bill(null, name, price).apply {
+            billsRepository.addBill(this) { bill, error ->
+                if (error != null) {
+                    _error.value = error
+                } else {
+                    fetchContas()
+                }
             }
         }
     }

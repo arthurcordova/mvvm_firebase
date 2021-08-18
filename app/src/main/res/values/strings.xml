@@ -5,4 +5,8 @@
     <string name="login">Login</string>
     <string name="autenticar">Autenticar</string>
     <string name="cirar_uma_nova_conta_aqui">Cirar uma nova conta! Aqui</string>
+    <string name="save_button">save</string>
+    <string name="price">Price</string>
+    <string name="name">Name</string>
+    <string name="new_bill">New bill</string>
 </resources>
