@@ -6,31 +6,44 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.proway.mvvm_auth.R
 import com.proway.mvvm_auth.model.Bill
+import com.proway.mvvm_auth.view.ContentFragment
+import com.proway.mvvm_auth.view.SignInFragment
 
-private val TAB_TITLES = arrayOf(
-    R.string.tab_text_1,
-    R.string.tab_text_2
-)
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, private val bill: Bill) :
+class SectionsPagerAdapter(
+    fm: FragmentManager
+) :
     FragmentPagerAdapter(fm) {
 
+
+    private val listOfFrags = listOf<Fragment>(
+        ContentFragment.newInstance(),
+        SignInFragment.newInstance(),
+        SignInFragment.newInstance(),
+        SignInFragment.newInstance(),
+        SignInFragment.newInstance(),
+        SignInFragment.newInstance(),
+        SignInFragment.newInstance(),
+        SignInFragment.newInstance(),
+        SignInFragment.newInstance(),
+        SignInFragment.newInstance()
+    )
+
+
     override fun getItem(position: Int): Fragment {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment(bill)
+        return listOfFrags[position]
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return context.resources.getString(TAB_TITLES[position])
+        return "Tab $position"
     }
 
     override fun getCount(): Int {
         // Show 2 total pages.
-        return 2
+        return listOfFrags.size
     }
 }

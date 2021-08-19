@@ -21,9 +21,7 @@ class DetailActivity : BaseActivity() {
     private lateinit var viewModel: DetailViewModel
 
     private val observerBill = Observer<Bill> { bill ->
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, bill)
-        binding.viewPager.adapter = sectionsPagerAdapter
-        binding.tabs.setupWithViewPager(binding.viewPager)
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +42,9 @@ class DetailActivity : BaseActivity() {
         intent.getStringExtra("bill_id")?.let { uid ->
             viewModel.fetchDetails(uid)
         }
+
+        binding.viewPager.adapter = SectionsPagerAdapter(supportFragmentManager)
+        binding.tabs.setupWithViewPager(binding.viewPager)
 
 
 //        val fab: FloatingActionButton = binding.fab
