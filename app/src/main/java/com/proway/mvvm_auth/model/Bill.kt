@@ -1,6 +1,5 @@
 package com.proway.mvvm_auth.model
 
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QueryDocumentSnapshot
 

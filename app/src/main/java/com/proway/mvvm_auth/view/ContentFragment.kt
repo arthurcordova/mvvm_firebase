@@ -32,10 +32,9 @@ class ContentFragment : Fragment(R.layout.content_fragment) {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var userEmailTextView: TextView
     private val adapter = ContasAdapter() { bill ->
-        Intent(requireContext(), DetailActivity::class.java).apply {
-            putExtra("bill_id", bill.uid)
-            startActivity(this)
-        }
+        val intent = Intent(requireContext(), DetailActivity::class.java)
+        intent.putExtra("bill_id", bill.uid)
+        startActivity(intent)
     }
 
     val observerContas = Observer<List<Bill>> {
