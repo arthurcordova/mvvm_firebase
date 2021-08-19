@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import com.proway.mvvm_auth.ui.main.SectionsPagerAdapter
 import com.proway.mvvm_auth.databinding.ActivityDetailBinding
+import com.proway.mvvm_auth.repository.BillRepository
 
 class DetailActivity : BaseActivity() {
 
@@ -18,6 +19,19 @@ class DetailActivity : BaseActivity() {
 
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val id = intent.getStringExtra("bill_id")
+        id?.let {
+           BillRepository().fetchBill(it) { bill, error ->
+
+                print("")
+
+            }
+        }
+
+
+
+
 
         binding.toolBar.apply {
             setSupportActionBar(this)

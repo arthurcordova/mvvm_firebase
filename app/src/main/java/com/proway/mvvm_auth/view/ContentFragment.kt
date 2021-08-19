@@ -31,12 +31,9 @@ class ContentFragment : Fragment(R.layout.content_fragment) {
     private lateinit var recyclerView: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var userEmailTextView: TextView
-    private val adapter = ContasAdapter() {
-
-//        BillRepository().fetchBill(it.uid!!) { bill, error ->
-//            println("")
-//        }
+    private val adapter = ContasAdapter() { bill ->
         Intent(requireContext(), DetailActivity::class.java).apply {
+            putExtra("bill_id", bill.uid)
             startActivity(this)
         }
     }
