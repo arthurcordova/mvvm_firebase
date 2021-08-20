@@ -13,12 +13,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+    }
 
+    override fun onResume() {
         if (FirebaseAuth.getInstance().currentUser != null) {
             replaceView(ContentFragment.newInstance())
         } else {
             replaceView(SignInFragment.newInstance())
         }
+        super.onResume()
     }
 
 }

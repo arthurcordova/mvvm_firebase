@@ -14,6 +14,12 @@ class DetailViewModel : ViewModel() {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
+    private val _actionDelete = MutableLiveData<Boolean>()
+    val actionDelete: LiveData<Boolean> = _actionDelete
+
+    private val _actionEdit = MutableLiveData<Boolean>()
+    val actionEdit: LiveData<Boolean> = _actionEdit
+
     private val repository = BillRepository()
 
     fun fetchDetails(uid: String) {
@@ -25,4 +31,28 @@ class DetailViewModel : ViewModel() {
             }
         }
     }
+
+    fun delete(uid: String) {
+        repository.delete(uid) { success ->
+            _actionDelete.value = success
+        }
+    }
+
+    fun update(name: String, price: Double?, uid: String) {
+        Bill(uid, name, price).let {
+            repository.update(it) { success ->
+                _actionEdit.value = success
+            }
+        }
+    }
+
+    fun getPokemons() {
+        repository.getPokemons() { pokeResponse, error ->
+            print("")
+        }
+
+
+    }
+
+
 }

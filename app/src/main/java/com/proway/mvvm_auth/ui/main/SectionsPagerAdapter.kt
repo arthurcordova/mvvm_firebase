@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.proway.mvvm_auth.R
 import com.proway.mvvm_auth.model.Bill
 import com.proway.mvvm_auth.view.ContentFragment
+import com.proway.mvvm_auth.view.DetailsFragment
 import com.proway.mvvm_auth.view.SignInFragment
 
 
@@ -15,35 +16,29 @@ import com.proway.mvvm_auth.view.SignInFragment
  * one of the sections/tabs/pages.
  */
 class SectionsPagerAdapter(
+    private val uid: String,
     fm: FragmentManager
 ) :
     FragmentPagerAdapter(fm) {
 
-
-    private val listOfFrags = listOf<Fragment>(
-        ContentFragment.newInstance(),
-        SignInFragment.newInstance(),
-        SignInFragment.newInstance(),
-        SignInFragment.newInstance(),
-        SignInFragment.newInstance(),
-        SignInFragment.newInstance(),
-        SignInFragment.newInstance(),
-        SignInFragment.newInstance(),
-        SignInFragment.newInstance(),
-        SignInFragment.newInstance()
-    )
-
-
     override fun getItem(position: Int): Fragment {
-        return listOfFrags[position]
+        return if (position == 0) DetailsFragment(uid, ViewType.DETAILS) else DetailsFragment(
+            uid,
+            ViewType.EDIT
+        )
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return "Tab $position"
+        return if (position == 0) "Details" else "Edit"
     }
 
     override fun getCount(): Int {
         // Show 2 total pages.
-        return listOfFrags.size
+        return 2
     }
+}
+
+enum class ViewType {
+    DETAILS,
+    EDIT
 }

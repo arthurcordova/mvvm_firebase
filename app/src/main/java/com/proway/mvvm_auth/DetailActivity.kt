@@ -18,11 +18,7 @@ import com.proway.mvvm_auth.view_model.DetailViewModel
 class DetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var viewModel: DetailViewModel
 
-    private val observerBill = Observer<Bill> { bill ->
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +26,6 @@ class DetailActivity : BaseActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
 
 
         binding.toolBar.apply {
@@ -38,20 +33,10 @@ class DetailActivity : BaseActivity() {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
 
-        viewModel.bill.observe(this, observerBill)
         intent.getStringExtra("bill_id")?.let { uid ->
-            viewModel.fetchDetails(uid)
+            binding.viewPager.adapter = SectionsPagerAdapter(uid, supportFragmentManager)
+            binding.tabs.setupWithViewPager(binding.viewPager)
         }
-
-        binding.viewPager.adapter = SectionsPagerAdapter(supportFragmentManager)
-        binding.tabs.setupWithViewPager(binding.viewPager)
-
-
-//        val fab: FloatingActionButton = binding.fab
-//fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
     }
 
 }
